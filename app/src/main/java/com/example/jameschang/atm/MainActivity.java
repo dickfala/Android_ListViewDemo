@@ -21,7 +21,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static final int RC_LOGIN = 100;
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, functions);
         grid.setAdapter(adapter);
 
+
+        grid.setOnItemClickListener(this);
 //        getSharedPreferences("abc", MODE_PRIVATE)
 //                .edit()
 //                .putString("WORDS","hello")
@@ -139,6 +141,31 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long itemId) {
+        Log.d(TAG, "onItemClick: " + position);
+
+        switch ((int)itemId) {
+            // function implements.
+            case R.drawable.func_balance: //餘額查詢
+                break;
+
+            case R.drawable.func_history: // 交易明細
+                break;
+
+            case R.drawable.func_news: // 最新消息
+                break;
+
+            case R.drawable.func_finance:  // 投資理財
+                break;
+
+            case R.drawable.func_exit: //離開
+                finish();
+                break;
+
+        }
+    }
+
     class IconAdapter extends BaseAdapter {
 
         @Override
@@ -153,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public long getItemId(int position) {
-            return position;
+            return icons[position];
         }
 
         @Override
@@ -167,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
 //
                 View view = getLayoutInflater()
                         .inflate(R.layout.icon_item, null);
-                ImageView image =  view.findViewById(R.id.item_image);
+                ImageView image = view.findViewById(R.id.item_image);
                 TextView tv = view.findViewById(R.id.item_text);
                 tv.setText(functions[position]);
                 image.setImageResource(icons[position]);

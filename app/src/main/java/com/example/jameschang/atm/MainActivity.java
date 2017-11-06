@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +17,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +27,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private boolean logon = false;
     private FloatingActionButton fab;
-    private String[] functions = getResources().getStringArray(R.array.functions);
+    private String[] functions;
+    int[] icons = {R.drawable.func_balance,
+            R.drawable.func_history,
+            R.drawable.func_news,
+            R.drawable.func_finance,
+            R.drawable.func_exit};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +40,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        String[] drinks = {"珍奶","綠茶","烏龍"};
         // setup list view
+        functions = getResources().getStringArray(R.array.functions);
+
         setupListView();
         GridView grid = findViewById(R.id.grid);
-        ArrayAdapter<String > adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,functions);
+        IconAdapter adapter = new IconAdapter();
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, functions);
         grid.setAdapter(adapter);
 
 //        getSharedPreferences("abc", MODE_PRIVATE)
@@ -97,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             String password = data.getStringExtra("PASSWORD");
             Log.d(TAG, "onActivityResult: " + userId);
 
-            Snackbar.make(fab,"login success", Snackbar.LENGTH_LONG).setActionTextColor(Color.RED).show();
+            Snackbar.make(fab, "login success", Snackbar.LENGTH_LONG).setActionTextColor(Color.RED).show();
 
             getSharedPreferences(getString(R.string.pref_name), MODE_PRIVATE)
                     .edit()
@@ -128,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    class IconAdapter extends BaseAdapter{
+    class IconAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -147,7 +158,24 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            return null;
+
+            if (convertView == null) {
+                // 不在此內部class要用下面取得
+//                LayoutInflater layoutInflater =
+//                        LayoutInflater.from(parent.getContext());
+//                View view = layoutInflater.inflate(R.layout.icon_item,null);
+//
+                View view = getLayoutInflater()
+                        .inflate(R.layout.icon_item, null);
+                ImageView image =  view.findViewById(R.id.item_image);
+                TextView tv = view.findViewById(R.id.item_text);
+                tv.setText(functions[position]);
+                image.setImageResource(icons[position]);
+                convertView = view;
+
+            }
+
+            return convertView;
         }
     }
 }

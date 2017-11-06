@@ -8,10 +8,10 @@
         <item>烏龍</item>
     </array>
     <array name="functions">
-        <item>功能一</item>
-        <item>功能二</item>
-        <item>功能三</item>
-        <item>功能四</item>
-        <item>功能五</item>
+        <item>餘額查詢</item>
+        <item>交易明細</item>
+        <item>最新消息</item>
+        <item>投資理財</item>
+        <item>離開</item>
     </array>
 </resources>

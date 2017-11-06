@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Atm</string>
+    <string name="action_settings">Settings</string>
+    <string name="pref_name">PrefName</string>
+    <array name="drinks">
+        <item>珍奶</item>
+        <item>綠茶</item>
+        <item>烏龍</item>
+    </array>
+    <array name="functions">
+        <item>功能一</item>
+        <item>功能二</item>
+        <item>功能三</item>
+        <item>功能四</item>
+        <item>功能五</item>
+    </array>
+</resources>

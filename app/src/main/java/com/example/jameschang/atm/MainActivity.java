@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
 
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private boolean logon = false;
     private FloatingActionButton fab;
+    private String[] functions = getResources().getStringArray(R.array.functions);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         // setup list view
         setupListView();
         GridView grid = findViewById(R.id.grid);
-        ArrayAdapter<String > adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.functions));
+        ArrayAdapter<String > adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,functions);
         grid.setAdapter(adapter);
 
 //        getSharedPreferences("abc", MODE_PRIVATE)
@@ -123,5 +126,28 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    class IconAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return functions.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return functions[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return null;
+        }
     }
 }
